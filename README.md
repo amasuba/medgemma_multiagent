@@ -1,5 +1,3 @@
-# README.md
-
 # MedGemma Multi-AI Agentic System
 
 **MedGemma Multi-AI Agentic System** is a modular, multi-agent framework for automated chest X-ray report generation using Google’s MedGemma multimodal model. It mirrors clinical reasoning by coordinating specialized agents for retrieval, vision analysis, drafting, refinement, and synthesis.
