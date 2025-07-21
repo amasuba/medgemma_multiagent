@@ -195,16 +195,3 @@ docker run --gpus all -p 8000:8000 \
 
 MIT License — see [LICENSE](LICENSE) for details.
 
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/711c241e-bdc7-4604-9a43-74bc695ad3b4/config.yaml
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/d4ad4f27-1b04-4728-bba6-9b8551af5208/main.py
-[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/a1064641-efc5-4a26-8fd9-015151ca6f82/requirements.txt
-[4] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/5667fc2a-3269-48cd-8698-33804d0a756d/setup.py
-[5] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/803ebf60-fec3-460d-bedf-4647c9350d8f/base_agent.py
-[6] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/fe0332a7-0aef-47f0-a6f2-53a28312214f/retrieval_agent.py
-[7] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/40fcf975-45e4-4d4c-8084-2a89d99f8b5d/vision_agent.py
-[8] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/49e609bf-4ea2-45dd-8518-9ac32b5518b6/draft_agent.py
-[9] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/f36b0980-8d73-4443-ab7d-006de3c10d67/refiner_agent.py
-[10] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/139c5a16-b570-45e0-9f81-5f017850fcda/medgemma_wrapper.py
-[11] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/8c51ec19-d6e3-4dc7-ba1d-d1daf1395552/model_config.py
-[12] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/cd99d7c3-6097-4fbd-a904-04548dc9fda6/config.py
-[13] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/50568835/2cb7fb85-b129-49b7-b81a-77df5bf1daa8/MedGemma-Multi-AI-Agentic-System-Complete-Projec.pdf
