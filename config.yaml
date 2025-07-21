@@ -1,0 +1,283 @@
+# MedGemma Multi-Agent System Configuration
+
+# =============================================================================
+# SYSTEM CONFIGURATION
+# =============================================================================
+system:
+  name: "MedGemma Multi-Agent System"
+  version: "1.0.0"
+  description: "Multi-AI Agentic System for Chest X-Ray Report Generation"
+  environment: "development"  # development, staging, production
+  debug: false
+
+# =============================================================================
+# MODEL CONFIGURATION
+# =============================================================================
+models:
+  medgemma:
+    model_name: "google/medgemma-4b-it"
+    model_type: "multimodal"
+    cache_dir: "./models/cache"
+    device: "auto"  # auto, cuda, cpu
+    quantization:
+      enabled: true
+      bits: 4
+      method: "bitsandbytes"
+    generation:
+      max_length: 2048
+      temperature: 0.7
+      top_p: 0.9
+      top_k: 50
+      do_sample: true
+      repetition_penalty: 1.1
+      pad_token_id: 0
+      eos_token_id: 2
+
+  embedding:
+    model_name: "sentence-transformers/all-MiniLM-L6-v2"
+    device: "auto"
+    max_seq_length: 512
+    normalize_embeddings: true
+
+# =============================================================================
+# AGENT CONFIGURATION
+# =============================================================================
+agents:
+  global:
+    timeout: 300  # seconds
+    retry_attempts: 3
+    log_level: "INFO"
+    enable_memory: true
+    memory_window_size: 10
+    max_concurrent: 5
+    communication_timeout: 60
+
+  retrieval_agent:
+    name: "RetrievalAgent"
+    description: "Retrieves similar chest X-ray reports"
+    enabled: true
+    config:
+      top_k: 5
+      similarity_threshold: 0.7
+      search_methods: ["chromadb", "faiss"]
+      embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+      expand_query: true
+      rerank_results: true
+
+  vision_agent:
+    name: "VisionAgent"
+    description: "Analyzes chest X-ray images"
+    enabled: true
+    config:
+      analysis_types: ["detailed", "findings", "comparison", "quality"]
+      confidence_threshold: 0.6
+      max_image_size: [512, 512]
+      preprocessing:
+        resize: true
+        normalize: true
+        enhance_contrast: false
+
+  draft_agent:
+    name: "DraftAgent"
+    description: "Generates initial report drafts"
+    enabled: true
+    config:
+      template_based: true
+      use_retrieved_context: true
+      max_draft_length: 1000
+      include_confidence: true
+      structured_output: true
+
+  refiner_agent:
+    name: "RefinerAgent"
+    description: "Refines and extracts key findings"
+    enabled: true
+    config:
+      entity_extraction: true
+      finding_prioritization: true
+      consistency_checking: true
+      clinical_validation: true
+      output_format: "structured"
+
+  synthesis_agent:
+    name: "SynthesisAgent"
+    description: "Synthesizes final report"
+    enabled: true
+    config:
+      multi_agent_integration: true
+      quality_assurance: true
+      report_formatting: true
+      clinical_structure: true
+      final_validation: true
+
+# =============================================================================
+# DATA CONFIGURATION
+# =============================================================================
+data:
+  directories:
+    base: "./data"
+    reports: "./data/reports"
+    images: "./data/images"
+    processed: "./data/processed"
+    cache: "./data/cache"
+
+  image_processing:
+    supported_formats: ["jpg", "jpeg", "png", "tiff", "dicom"]
+    resize_dimensions: [224, 224]
+    normalization: true
+    augmentation: false
+
+  report_processing:
+    max_length: 2000
+    structured_format: true
+    include_metadata: true
+    anonymize_data: true
+
+# =============================================================================
+# RETRIEVAL CONFIGURATION
+# =============================================================================
+retrieval:
+  vector_database:
+    type: "chromadb"  # chromadb, faiss, both
+    path: "./data/vector_db"
+    collection_name: "chest_xray_reports"
+    persist_directory: "./data/vector_db/persist"
+
+  knowledge_base:
+    path: "./data/knowledge_base"
+    auto_expand: true
+    update_interval: 3600  # seconds
+    backup_enabled: true
+
+  search:
+    top_k: 5
+    similarity_threshold: 0.7
+    hybrid_search: true
+    reranking: true
+    query_expansion: true
+
+# =============================================================================
+# EVALUATION CONFIGURATION
+# =============================================================================
+evaluation:
+  metrics:
+    enabled: ["radgraph_f1", "bleu", "rouge", "bertscore"]
+    batch_size: 32
+    output_dir: "./evaluation_results"
+
+  radgraph:
+    enabled: true
+    model_path: "./models/radgraph"
+
+  gema_score:
+    enabled: true
+    weights:
+      accuracy: 0.3
+      completeness: 0.3
+      clarity: 0.2
+      clinical_relevance: 0.2
+
+  human_evaluation:
+    enabled: false
+    sample_size: 100
+    evaluator_pool: 3
+
+# =============================================================================
+# LOGGING CONFIGURATION
+# =============================================================================
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  directory: "./logs"
+  file_max_size: "10MB"
+  backup_count: 5
+  structured: true
+
+  performance:
+    enabled: true
+    interval: 60  # seconds
+    memory_threshold: 80  # percentage
+
+  agents:
+    individual_logs: true
+    communication_logs: true
+    performance_metrics: true
+
+# =============================================================================
+# API CONFIGURATION
+# =============================================================================
+api:
+  server:
+    host: "0.0.0.0"
+    port: 8000
+    workers: 4
+    timeout: 300
+    reload: false
+
+  cors:
+    origins: ["http://localhost:3000", "http://localhost:8080"]
+    methods: ["GET", "POST", "PUT", "DELETE"]
+    headers: ["*"]
+
+  documentation:
+    enabled: true
+    title: "MedGemma Multi-Agent System API"
+    description: "API for chest X-ray report generation"
+    version: "1.0.0"
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+security:
+  authentication:
+    enabled: true
+    method: "jwt"
+    secret_key: "your_secret_key_here"
+    expiration: 3600  # seconds
+
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    burst_limit: 20
+
+  data_privacy:
+    anonymization: true
+    retention_policy: false
+    audit_logging: true
+
+# =============================================================================
+# DEPLOYMENT CONFIGURATION
+# =============================================================================
+deployment:
+  environment: "development"
+  container:
+    name: "medgemma-multiagent"
+    port: 8000
+    health_check_interval: 30
+    graceful_shutdown_timeout: 30
+
+  monitoring:
+    metrics_enabled: true
+    metrics_port: 9090
+    health_checks: true
+    health_endpoint: "/health"
+
+  scaling:
+    auto_scaling: false
+    min_instances: 1
+    max_instances: 5
+    cpu_threshold: 70
+    memory_threshold: 80
+
+# =============================================================================
+# EXPERIMENTAL CONFIGURATION
+# =============================================================================
+experimental:
+  features:
+    enabled: false
+    agent_types: []
+    beta_features: []
+
+  research:
+    mode: false
+    data_collection: false
+    performance_benchmarking: false
